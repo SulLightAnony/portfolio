@@ -23,161 +23,358 @@ window.addEventListener('DOMContentLoaded', () => {
     // Register GSAP ScrollTrigger
     gsap.registerPlugin(ScrollTrigger);
 
-    // 3. Multi-Layer Hero Parallax (Makin belakang makin lambat, makin depan makin terasa dalam)
-    const parallaxLayers = document.querySelectorAll('[data-parallax-speed]');
-    parallaxLayers.forEach((layer) => {
-    const speed = parseFloat(layer.getAttribute('data-parallax-speed') || '0');
-    if (speed > 0) {
-        gsap.to(layer, {
-        y: () => speed * 360,
-        ease: 'none',
-        scrollTrigger: {
-            trigger: '#hero',
-            start: 'top top',
-            end: 'bottom top',
-            scrub: true,
+    // 3. Header & Parallax Layers Entrance Animation
+    // Muncul berurutan dari layer paling atas (foreground layer 4), bergerak dari bawah ke atas
+    const heroLayerSvgs = [
+        document.querySelector('#heroLayerForeground svg'),
+        document.querySelector('#heroLayerRiverValley svg'),
+        document.querySelector('#heroLayerMidMountain svg'),
+        document.querySelector('#heroLayerFarMountain svg'),
+        document.querySelector('#heroLayerSky svg'),
+    ].filter(Boolean);
+
+    const heroEntranceTl = gsap.timeline({
+        defaults: { ease: 'power3.out' },
+        onComplete: () => {
+            ScrollTrigger.refresh();
+        }
+    });
+
+    // Inner SVGs muncul dari bawah ke atas berurutan (Layer 4 foreground duluan, lalu 3, 2, 1, 0)
+    // Menggunakan inner SVG memastikan outer .parallax-layer div tetap murni bebas transform awal (anti-patah saat scroll pertama)
+    heroEntranceTl.fromTo(
+        heroLayerSvgs,
+        { y: 130, opacity: 0 },
+        {
+            y: 0,
+            opacity: 1,
+            duration: 1.25,
+            stagger: 0.12,
+            ease: 'power3.out',
+            clearProps: 'transform',
         },
+        0.05
+    );
+
+    // Navbar meluncur halus dari atas
+    heroEntranceTl.fromTo(
+        '#topNavbar',
+        { y: -60, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.85, ease: 'power2.out', clearProps: 'transform' },
+        0.25
+    );
+
+    // Elemen konten hero muncul bertahap
+    heroEntranceTl.fromTo(
+        '#heroContent > div:first-child',
+        { y: 30, opacity: 0, scale: 0.9 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.7, ease: 'back.out(1.4)', clearProps: 'transform' },
+        0.5
+    );
+
+    heroEntranceTl.fromTo(
+        '#heroContent h1',
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.85, ease: 'power3.out', clearProps: 'transform' },
+        0.65
+    );
+
+    heroEntranceTl.fromTo(
+        '#heroContent p',
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', clearProps: 'transform' },
+        0.8
+    );
+
+    heroEntranceTl.fromTo(
+        '#heroContent .flex',
+        { y: 25, opacity: 0, scale: 0.96 },
+        { y: 0, opacity: 1, scale: 1, duration: 0.75, ease: 'power2.out', clearProps: 'transform' },
+        0.95
+    );
+
+    // 4. Multi-Layer Hero Parallax saat scroll
+    // Mengontrol elemen outer .parallax-layer yang memiliki data-parallax-speed > 0
+    const parallaxLayers = document.querySelectorAll('.parallax-layer[data-parallax-speed]');
+    parallaxLayers.forEach((layer) => {
+        const speed = parseFloat(layer.getAttribute('data-parallax-speed') || '0');
+        if (speed > 0) {
+            gsap.to(layer, {
+                y: () => speed * 300,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '#hero',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: 0.3,
+                    invalidateOnRefresh: true,
+                },
+            });
+        }
+    });
+
+    // Konten teks hero melayang lembut dan memudar elegan saat di-scroll
+    const heroContent = document.getElementById('heroContent');
+    if (heroContent) {
+        gsap.to(heroContent, {
+            y: -50,
+            opacity: 0,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '#hero',
+                start: '20% top',
+                end: '75% top',
+                scrub: true,
+            }
         });
     }
+
+    // 5. Dynamic Scroll Reveals: Lateral Left & Right Slides (Section 2 Trust & About)
+    gsap.utils.toArray('#trust-about .reveal-from-left').forEach((el) => {
+        gsap.fromTo(
+            el,
+            { x: -85, opacity: 0 },
+            {
+                x: 0,
+                opacity: 1,
+                duration: 0.95,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse',
+                },
+            }
+        );
     });
 
-    // 4. Dynamic Scroll Reveals: Lateral Left & Right Slides
-    gsap.utils.toArray('.reveal-from-left').forEach((el) => {
-    gsap.fromTo(
-        el,
-        { x: -90, opacity: 0 },
-        {
-        x: 0,
-        opacity: 1,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-            trigger: el,
-            start: 'top 86%',
-            toggleActions: 'play none none reverse',
-        },
-        }
-    );
+    gsap.utils.toArray('#trust-about .reveal-from-right').forEach((el) => {
+        gsap.fromTo(
+            el,
+            { x: 85, opacity: 0 },
+            {
+                x: 0,
+                opacity: 1,
+                duration: 0.95,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse',
+                },
+            }
+        );
     });
 
-    gsap.utils.toArray('.reveal-from-right').forEach((el) => {
-    gsap.fromTo(
-        el,
-        { x: 90, opacity: 0 },
-        {
-        x: 0,
-        opacity: 1,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-            trigger: el,
-            start: 'top 86%',
-            toggleActions: 'play none none reverse',
-        },
-        }
-    );
-    });
-
-    // 5. Dynamic Scroll Reveals: From Small to Large with Rotation (Scale + Rotation)
-    gsap.utils.toArray('.reveal-scale-rotate').forEach((el) => {
-    gsap.fromTo(
-        el,
-        { scale: 0.82, rotation: -4, opacity: 0 },
-        {
-        scale: 1,
-        rotation: 0,
-        opacity: 1,
-        duration: 1.1,
-        ease: 'back.out(1.3)',
-        scrollTrigger: {
-            trigger: el,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-        },
-        }
-    );
-    });
-
-    gsap.utils.toArray('.reveal-scale-rotate-left').forEach((el) => {
-    gsap.fromTo(
-        el,
-        { scale: 0.8, rotation: -5, y: 60, opacity: 0 },
-        {
-        scale: 1,
-        rotation: 0,
-        y: 0,
-        opacity: 1,
-        duration: 1.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-            trigger: el,
-            start: 'top 84%',
-            toggleActions: 'play none none reverse',
-        },
-        }
-    );
-    });
-
-    gsap.utils.toArray('.reveal-scale-rotate-right').forEach((el) => {
-    gsap.fromTo(
-        el,
-        { scale: 0.8, rotation: 5, y: 60, opacity: 0 },
-        {
-        scale: 1,
-        rotation: 0,
-        y: 0,
-        opacity: 1,
-        duration: 1.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-            trigger: el,
-            start: 'top 84%',
-            toggleActions: 'play none none reverse',
-        },
-        }
-    );
-    });
-
-    // 6. Bento Cards Staggered Pop-Up with Subtle Rotation
-    gsap.fromTo(
-    '.bento-reveal',
-    { y: 65, scale: 0.9, rotation: 2.5, opacity: 0 },
-    {
-        y: 0,
-        scale: 1,
-        rotation: 0,
-        opacity: 1,
-        duration: 0.9,
-        stagger: 0.14,
-        ease: 'power3.out',
-        scrollTrigger: {
-        trigger: '#craft',
-        start: 'top 76%',
-        toggleActions: 'play none none reverse',
-        },
+    // 6. Behind the Craft: Portrait Photo Scrub Parallax (Rotate & Scale on Scroll)
+    const portraitFrame = document.getElementById('aboutPortraitFrame');
+    if (portraitFrame) {
+        gsap.fromTo(
+            portraitFrame,
+            { scale: 0.88, rotation: -4.5 },
+            {
+                scale: 1.0,
+                rotation: 2,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '#trust-about',
+                    start: 'top 75%',
+                    end: 'bottom 40%',
+                    scrub: 1.2,
+                    invalidateOnRefresh: true,
+                }
+            }
+        );
     }
-    );
 
-    // 7. Scroll-Drawn Timeline Progress Line
+    // 7. Selected Works: Item Entrance Reveal & Silky-Smooth Horizontal Pinning
+    const projectsSection = document.getElementById('projects');
+    const projectsHeading = document.getElementById('projectsHeading');
+    const projectsTrack = document.getElementById('projectsGalleryTrack');
+    const projectCards = document.querySelectorAll('.project-card-reveal');
+
+    if (projectsSection && projectsTrack) {
+        // Animasi kemunculan heading saat section Selected Works mulai terlihat
+        if (projectsHeading) {
+            gsap.fromTo(
+                projectsHeading,
+                { y: 40, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.85,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: projectsSection,
+                        start: 'top 65%',
+                        toggleActions: 'play none none reverse',
+                    }
+                }
+            );
+        }
+
+        // Animasi kemunculan kartu-kartu proyek saat masuk area pandang mata (sebelum di-pin)
+        // Kartu membesar dinamis dengan sedikit rotasi artistik (scale & subtle tilt)
+        if (projectCards.length > 0) {
+            projectCards.forEach((card, idx) => {
+                const rot = idx % 2 === 0 ? -2.5 : 2.5;
+                gsap.fromTo(
+                    card,
+                    { scale: 0.88, rotation: rot, y: 55, opacity: 0 },
+                    {
+                        scale: 1,
+                        rotation: 0,
+                        y: 0,
+                        opacity: 1,
+                        duration: 1.0,
+                        ease: 'back.out(1.2)',
+                        scrollTrigger: {
+                            trigger: projectsSection,
+                            start: 'top 35%',
+                            toggleActions: 'play none none reverse',
+                        }
+                    }
+                );
+            });
+        }
+
+        // Horizontal Pinning & Direct Scrub
+        const getHorizontalScrollDistance = () => {
+            const trackWidth = projectsTrack.scrollWidth;
+            const viewportWidth = window.innerWidth;
+            return Math.max(0, trackWidth - viewportWidth + 64);
+        };
+
+        gsap.to(projectsTrack, {
+            x: () => -getHorizontalScrollDistance(),
+            ease: 'none',
+            scrollTrigger: {
+                trigger: projectsSection,
+                pin: true,
+                scrub: 0.5,
+                start: 'top top',
+                end: () => '+=' + getHorizontalScrollDistance(),
+                invalidateOnRefresh: true,
+                anticipatePin: 0,
+            }
+        });
+
+        // Sinkronisasi ulang ukuran ScrollTrigger saat gambar proyek selesai ter-load
+        projectsTrack.querySelectorAll('img').forEach((img) => {
+            if (img.complete) {
+                ScrollTrigger.refresh();
+            } else {
+                img.addEventListener('load', () => ScrollTrigger.refresh());
+            }
+        });
+    }
+
+    // 8. Versatile Craft: Bento Cards Individual Pop-Up (Muncul saat tiap kartu masuk layar)
+    gsap.utils.toArray('#craft .bento-spotlight-card').forEach((card) => {
+        gsap.fromTo(
+            card,
+            { y: 45, scale: 0.94, opacity: 0 },
+            {
+                y: 0,
+                scale: 1,
+                opacity: 1,
+                duration: 0.8,
+                ease: 'power2.out',
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 84%',
+                    toggleActions: 'play none none reverse',
+                },
+            }
+        );
+    });
+
+    // 9. Let's Collaborate: Conversion Card Scale-Up Reveal
+    const collaborateCard = document.querySelector('.reveal-collaborate');
+    if (collaborateCard) {
+        gsap.fromTo(
+            collaborateCard,
+            { scale: 0.9, y: 40, opacity: 0 },
+            {
+                scale: 1,
+                y: 0,
+                opacity: 1,
+                duration: 0.85,
+                ease: 'back.out(1.2)',
+                scrollTrigger: {
+                    trigger: collaborateCard,
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse',
+                }
+            }
+        );
+    }
+
+    // 10. My Professional Journey: Timeline Row Reveal & Scroll-Drawn Progress Line
+    // Heading Journey Reveal
+    const journeyHeading = document.getElementById('journeyHeading');
+    if (journeyHeading) {
+        gsap.fromTo(
+            journeyHeading,
+            { y: 35, opacity: 0 },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 0.85,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '#journey',
+                    start: 'top 78%',
+                    toggleActions: 'play none none reverse',
+                }
+            }
+        );
+    }
+
+    // Setiap baris milestone muncul bersamaan (kiri meluncur, badge icon membal/pop, kanan meluncur)
+    gsap.utils.toArray('.timeline-row').forEach((row) => {
+        const leftEl = row.querySelector('.reveal-from-left');
+        const rightEl = row.querySelector('.reveal-from-right');
+        const dot = row.querySelector('.timeline-dot');
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: row,
+                start: 'top 75%',
+                toggleActions: 'play none none reverse',
+            }
+        });
+
+        if (leftEl) {
+            tl.fromTo(leftEl, { x: -85, opacity: 0 }, { x: 0, opacity: 1, duration: 0.95, ease: 'power3.out' }, 0);
+        }
+        if (rightEl) {
+            tl.fromTo(rightEl, { x: 85, opacity: 0 }, { x: 0, opacity: 1, duration: 0.95, ease: 'power3.out' }, 0.05);
+        }
+        if (dot) {
+            tl.fromTo(dot, { scale: 0.3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.7, ease: 'back.out(1.8)' }, 0.1);
+        }
+    });
+
     const timelineLine = document.getElementById('timelineProgressLine');
     if (timelineLine) {
-    gsap.to(timelineLine, {
-        height: '100%',
-        ease: 'none',
-        scrollTrigger: {
-        trigger: '#journey',
-        start: 'top 60%',
-        end: 'bottom 70%',
-        scrub: 0.5,
-        },
-    });
+        gsap.to(timelineLine, {
+            height: '100%',
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '#journey',
+                start: 'top 60%',
+                end: 'bottom 70%',
+                scrub: 0.5,
+            },
+        });
     }
 
-    // 8. Web-Scroll Design: Top Progress Bar, Navbar State & Active Chapter Dots
+    // 11. Web-Scroll Design: Top Progress Bar, Navbar State & Active Chapter Dots
     const progressBar = document.getElementById('scrollProgressBar');
     const topNavbar = document.getElementById('topNavbar');
     const chapterDots = document.querySelectorAll('.chapter-dot');
-    const sectionIds = ['#hero', '#trust-about', '#projects', '#craft', '#journey', '#contact'];
+    const sectionIds = ['#hero', '#trust-about', '#projects', '#craft', '#journey', '#collaborate', '#contact'];
 
     window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY;
@@ -270,7 +467,6 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     // 11. One-Click Copy Email to Clipboard (Uses execCommand for universal compatibility)
-    const copyEmailBtn = document.getElementById('copyEmailBtn');
     const toastBanner = document.getElementById('toastBanner');
     const toastMessage = document.getElementById('toastMessage');
 
@@ -281,23 +477,6 @@ window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         toastBanner.classList.remove('show');
     }, 3200);
-    }
-
-    if (copyEmailBtn) {
-    copyEmailBtn.addEventListener('click', () => {
-        const email = 'sulthanfaaz@gmail.com';
-        const tempInput = document.createElement('textarea');
-        tempInput.value = email;
-        document.body.appendChild(tempInput);
-        tempInput.select();
-        try {
-        document.execCommand('copy');
-        showToast('Email sulthanfaaz@gmail.com copied to clipboard!');
-        } catch (err) {
-        showToast('Email: sulthanfaaz@gmail.com');
-        }
-        document.body.removeChild(tempInput);
-    });
     }
 
     // 12. Photo & SVG Replacement Guide Modal Toggle
@@ -321,4 +500,9 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
     }
+
+    // 13. Global Refresh on Complete Window Load (Assets, Fonts & Stylesheets)
+    window.addEventListener('load', () => {
+        ScrollTrigger.refresh();
+    });
 });
