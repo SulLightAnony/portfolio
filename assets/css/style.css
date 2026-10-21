@@ -1,0 +1,567 @@
+:root {
+    /* Soft Pastel & Botanical Palette */
+    --sky-top: #FFFDF9;
+    --sky-mid: #FCEEE2;
+    --sky-horizon: #F7D9C4;
+    --pastel-lavender: #E2DAF0;
+    --pastel-blush: #F7E1D7;
+    --pastel-peach: #F9DCC4;
+    --pastel-mint: #DCECE7;
+    --pastel-aqua: #B8E4E6;
+    --pastel-cream: #FAF6F0;
+    --pastel-sand: #F2EAE0;
+    
+    /* Seamless Hero Foreground-to-Section-1 Transition Color */
+    --meadow-deep: #243B35;
+    --meadow-mid: #325249;
+    --meadow-soft: #4B7366;
+    --meadow-sage: #769E8F;
+    
+    /* Typography & Accent Tokens */
+    --text-dark: #1E2D28;
+    --text-muted: #566B63;
+    --text-light: #F7F4EE;
+    --text-light-muted: #C2D4CD;
+    --accent-terracotta: #E07A5F;
+    --accent-gold: #E8B86D;
+    --accent-sage: #5E8C7A;
+    
+    /* Surface & Border Tokens */
+    --card-bg: rgba(255, 255, 255, 0.78);
+    --card-border: rgba(30, 45, 40, 0.08);
+    --shadow-soft: 0 20px 45px -15px rgba(30, 45, 40, 0.07);
+    --shadow-hover: 0 28px 60px -12px rgba(30, 45, 40, 0.14);
+    --radius-xl: 28px;
+    --radius-lg: 20px;
+    --radius-pill: 9999px;
+
+    /* Fonts */
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: auto; /* Handled by Lenis smooth scroll */
+    background-color: var(--pastel-cream);
+    color: var(--text-dark);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+}
+
+body {
+    overflow-x: hidden;
+    background-color: var(--pastel-cream);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* --------------------------------------------------------------------------
+    1. CUSTOM WEB-SCROLL DESIGN (Scrollbar, Top Bar & Side Chapter Navigator)
+    -------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+    width: 11px;
+}
+::-webkit-scrollbar-track {
+    background: #EFE9DF;
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #84A99C 0%, #4B7366 100%);
+    border-radius: 99px;
+    border: 2px solid #EFE9DF;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #243B35;
+}
+
+/* Top Reading Progress Bar */
+.scroll-progress-track {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(36, 59, 53, 0.08);
+    z-index: 9999;
+    pointer-events: none;
+}
+.scroll-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent-terracotta), var(--accent-gold), var(--accent-sage));
+    border-radius: 0 4px 4px 0;
+    transition: width 0.08s linear;
+}
+
+/* Floating Side Scroll Chapter Navigator */
+.scroll-chapter-nav {
+    position: fixed;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 900;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    background: rgba(255, 253, 249, 0.72);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 14px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(36, 59, 53, 0.12);
+    box-shadow: 0 12px 32px rgba(36, 59, 53, 0.08);
+}
+.chapter-dot {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 99px;
+    background: rgba(36, 59, 53, 0.25);
+    border: none;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.chapter-dot.active {
+    height: 28px;
+    background: var(--accent-terracotta);
+}
+.chapter-dot:hover {
+    background: var(--meadow-deep);
+    transform: scale(1.2);
+}
+.chapter-tooltip {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%) translateX(8px);
+    background: var(--meadow-deep);
+    color: var(--text-light);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 4px 10px;
+    border-radius: 8px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.25s ease;
+}
+.chapter-dot:hover .chapter-tooltip {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+}
+
+@media (max-width: 1024px) {
+    .scroll-chapter-nav {
+    display: none;
+    }
+}
+
+/* --------------------------------------------------------------------------
+    2. CUSTOM FOLLOWER CURSOR (Soft Pastel Aura on Desktop)
+    -------------------------------------------------------------------------- */
+.custom-cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid rgba(224, 122, 95, 0.55);
+    background: rgba(224, 122, 95, 0.06);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+.custom-cursor-ring.cursor-hover {
+    width: 64px;
+    height: 64px;
+    background: rgba(232, 184, 109, 0.16);
+    border-color: rgba(36, 59, 53, 0.45);
+}
+@media (pointer: coarse), (max-width: 768px) {
+    .custom-cursor-ring {
+    display: none;
+    }
+}
+
+/* --------------------------------------------------------------------------
+    3. FLOATING GLASS NAVIGATION BAR
+    -------------------------------------------------------------------------- */
+.top-navbar {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(92%, 1140px);
+    z-index: 950;
+    background: rgba(255, 253, 249, 0.78);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(36, 59, 53, 0.1);
+    border-radius: var(--radius-pill);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 10px 30px -10px rgba(36, 59, 53, 0.08);
+    transition: all 0.35s ease;
+}
+.top-navbar.scrolled {
+    top: 12px;
+    background: rgba(255, 253, 249, 0.92);
+    box-shadow: 0 16px 38px -12px rgba(36, 59, 53, 0.14);
+}
+.nav-link {
+    position: relative;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 99px;
+    transition: color 0.25s ease, background 0.25s ease;
+}
+.nav-link:hover {
+    background: rgba(94, 140, 122, 0.12);
+    color: var(--meadow-deep);
+}
+
+/* --------------------------------------------------------------------------
+    4. HERO PARALLAX LANDSCAPE (Mountains, River, Wind, Swaying Botanicals)
+    -------------------------------------------------------------------------- */
+.hero-parallax-stage {
+    position: relative;
+    width: 100%;
+    height: 118vh;
+    min-height: 780px;
+    overflow: hidden;
+    background: linear-gradient(180deg, #FFFDF9 0%, #FCEEE2 32%, #F6D5C1 66%, #DECFE8 100%);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.parallax-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    will-change: transform;
+}
+
+.parallax-layer svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Hero Content Container (Interactive Layer) */
+.hero-content-wrapper {
+    position: relative;
+    z-index: 30;
+    margin-top: 135px;
+    max-width: 820px;
+    padding: 0 24px;
+    text-align: center;
+    pointer-events: auto;
+}
+
+/* Gentle Continuous Landscape Animations (River, Wind, Swaying Grass & Clouds) */
+@keyframes cloudDriftSlow {
+    0% { transform: translate3d(-18px, 0, 0); }
+    50% { transform: translate3d(22px, -4px, 0); }
+    100% { transform: translate3d(-18px, 0, 0); }
+}
+@keyframes riverShimmerFlow {
+    0% { stroke-dashoffset: 240; opacity: 0.55; }
+    50% { opacity: 0.9; }
+    100% { stroke-dashoffset: 0; opacity: 0.55; }
+}
+@keyframes windGustFlow {
+    0% { stroke-dashoffset: 400; opacity: 0; }
+    25% { opacity: 0.45; }
+    75% { opacity: 0.45; }
+    100% { stroke-dashoffset: -400; opacity: 0; }
+}
+@keyframes foliageSwayGentle {
+    0%, 100% { transform: rotate(-2.2deg) skewX(-1deg); }
+    50% { transform: rotate(2.6deg) skewX(1.2deg); }
+}
+@keyframes foliageSwayReverse {
+    0%, 100% { transform: rotate(2.4deg) skewX(1deg); }
+    50% { transform: rotate(-2.8deg) skewX(-1.4deg); }
+}
+@keyframes sunPulseSoft {
+    0%, 100% { transform: scale(1); opacity: 0.88; }
+    50% { transform: scale(1.04); opacity: 1; }
+}
+
+.anim-cloud-1 {
+    animation: cloudDriftSlow 18s ease-in-out infinite;
+}
+.anim-cloud-2 {
+    animation: cloudDriftSlow 24s ease-in-out infinite reverse;
+}
+.anim-sun-glow {
+    transform-origin: center;
+    animation: sunPulseSoft 9s ease-in-out infinite;
+}
+.anim-river-line {
+    stroke-dasharray: 28 32;
+    animation: riverShimmerFlow 7s linear infinite;
+}
+.anim-river-line-slow {
+    stroke-dasharray: 40 45;
+    animation: riverShimmerFlow 11s linear infinite;
+}
+.anim-wind-stream {
+    stroke-dasharray: 90 310;
+    animation: windGustFlow 9s ease-in-out infinite;
+}
+.anim-wind-stream-delayed {
+    stroke-dasharray: 75 325;
+    animation: windGustFlow 12s ease-in-out 3.5s infinite;
+}
+.sway-plant-1 {
+    transform-box: fill-box;
+    transform-origin: bottom center;
+    animation: foliageSwayGentle 5.5s ease-in-out infinite;
+}
+.sway-plant-2 {
+    transform-box: fill-box;
+    transform-origin: bottom center;
+    animation: foliageSwayReverse 6.8s ease-in-out infinite;
+}
+.sway-plant-3 {
+    transform-box: fill-box;
+    transform-origin: bottom center;
+    animation: foliageSwayGentle 4.7s ease-in-out 1.2s infinite;
+}
+
+/* --------------------------------------------------------------------------
+    5. SEAMLESS MERGED SECTION (Deep Meadow Background #243B35)
+    -------------------------------------------------------------------------- */
+.seamless-meadow-section {
+    position: relative;
+    background-color: var(--meadow-deep); /* Exact match with Hero Foreground Layer bottom! */
+    color: var(--text-light);
+    margin-top: -2px; /* Guarantees zero hairline gap across all screen DPIs */
+    padding-top: 48px;
+    padding-bottom: 110px;
+    z-index: 35;
+    overflow: hidden;
+}
+
+.meadow-glass-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), background 0.35s ease, border-color 0.35s ease;
+}
+.meadow-glass-card:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.11);
+    border-color: rgba(232, 184, 109, 0.45);
+}
+
+/* --------------------------------------------------------------------------
+    6. SOFT PASTEL CARDS, BENTO SPOTLIGHT & HOVER MICRO-INTERACTIONS
+    -------------------------------------------------------------------------- */
+.font-editorial {
+    font-family: var(--font-display);
+}
+
+.pastel-card {
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s ease, border-color 0.35s ease;
+}
+.pastel-card:hover {
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(94, 140, 122, 0.3);
+}
+
+/* Interactive Cursor Spotlight Effect on Bento Cards */
+.bento-spotlight-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    border: 1px solid rgba(36, 59, 53, 0.09);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+.bento-spotlight-card::before {
+    content: '';
+    position: absolute;
+    top: var(--mouse-y, -200px);
+    left: var(--mouse-x, -200px);
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0) 70%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: 1;
+}
+.bento-spotlight-card:hover::before {
+    opacity: 1;
+}
+.bento-spotlight-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+}
+.bento-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* Buttons with Magnetic & Ripple Feel */
+.btn-primary-pastel {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--meadow-deep);
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 15px 30px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    border: 1px solid var(--meadow-deep);
+    box-shadow: 0 12px 28px -8px rgba(36, 59, 53, 0.35);
+    transition: background 0.3s ease, color 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+.btn-primary-pastel:hover {
+    background: var(--accent-terracotta);
+    border-color: var(--accent-terracotta);
+    box-shadow: 0 16px 34px -8px rgba(224, 122, 95, 0.45);
+    transform: translateY(-2px);
+}
+
+.btn-secondary-pastel {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 253, 249, 0.85);
+    color: var(--meadow-deep);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 15px 28px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    border: 1px solid rgba(36, 59, 53, 0.18);
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.btn-secondary-pastel:hover {
+    background: #FFFFFF;
+    border-color: var(--meadow-deep);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px -8px rgba(36, 59, 53, 0.12);
+}
+
+/* Image Frame Styling with Alt Helper Badge */
+.curated-image-frame {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    background: #EAE2D6;
+}
+.curated-image-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.curated-image-frame:hover img {
+    transform: scale(1.05);
+}
+.alt-guide-badge {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: rgba(36, 59, 53, 0.82);
+    color: #FFFDF9;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 5px 11px;
+    border-radius: 99px;
+    backdrop-filter: blur(6px);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: all 0.25s ease;
+    pointer-events: none;
+}
+.curated-image-frame:hover .alt-guide-badge {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Rotating Botanical Stamp Badge */
+@keyframes slowSpinStamp {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+.spinning-stamp {
+    animation: slowSpinStamp 22s linear infinite;
+}
+
+/* Infinite Marquee Ribbon */
+@keyframes marqueeSlide {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+}
+.marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marqueeSlide 32s linear infinite;
+}
+.marquee-track:hover {
+    animation-play-state: paused;
+}
+
+/* Toast Notification */
+.toast-banner {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--meadow-deep);
+    color: #FFFDF9;
+    padding: 14px 24px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 20px 40px rgba(36, 59, 53, 0.25);
+    z-index: 9999;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+}
+.toast-banner.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}

@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sulthan Faazaa (Almusayid) — Creative Full-Stack Web Developer</title>
+  <meta name="description" content="Portfolio of Sulthan Faazaa Akbar Riyandoro (Almusayid), a Full-Stack Web Developer specializing in responsive web applications, scalable backends, and refined user experiences." />
+
+  <!-- Google Fonts: Fraunces (Soft Editorial Serif) & Plus Jakarta Sans (Clean Modern Geometric Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CDN for layout utility harmony alongside our extensive bespoke Native CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Professional Clean Icons (Zero Emojis) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- GSAP Core + ScrollTrigger for High-Performance Parallax & Scroll Reveals -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Lenis for Silky-Smooth Inertial Scrolling -->
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- ==========================================================================
+       WEB-SCROLL DESIGN ELEMENTS (Top Progress Bar, Cursor Ring & Chapter Dots)
+       ========================================================================== -->
+  <div class="scroll-progress-track" aria-hidden="true">
+    <div class="scroll-progress-bar" id="scrollProgressBar"></div>
+  </div>
+
+  <div class="custom-cursor-ring" id="customCursorRing" aria-hidden="true"></div>
+
+  <!-- Right-side Interactive Scroll Chapter Navigator -->
+  <nav class="scroll-chapter-nav" aria-label="Page Sections Navigation">
+    <button class="chapter-dot active" data-target="#hero" aria-label="Jump to Valley Hero">
+      <span class="chapter-tooltip">01. Serene Valley</span>
+    </button>
+    <button class="chapter-dot" data-target="#trust-about" aria-label="Jump to Trust and Story">
+      <span class="chapter-tooltip">02. Trust & Story</span>
+    </button>
+    <button class="chapter-dot" data-target="#projects" aria-label="Jump to Featured Works">
+      <span class="chapter-tooltip">03. Selected Works</span>
+    </button>
+    <button class="chapter-dot" data-target="#craft" aria-label="Jump to Capabilities">
+      <span class="chapter-tooltip">04. Craft & Arsenal</span>
+    </button>
+    <button class="chapter-dot" data-target="#journey" aria-label="Jump to Experience and Education">
+      <span class="chapter-tooltip">05. Career & Journey</span>
+    </button>
+    <button class="chapter-dot" data-target="#contact" aria-label="Jump to Contact">
+      <span class="chapter-tooltip">06. Start a Project</span>
+    </button>
+  </nav>
+
+  <!-- ==========================================================================
+       FLOATING GLASS NAVIGATION BAR
+       ========================================================================== -->
+  <header class="top-navbar" id="topNavbar">
+    <a href="#hero" class="flex items-center gap-3 text-decoration-none group">
+      <div class="w-10 h-10 rounded-full bg-[#243B35] text-[#FAF6F0] flex items-center justify-center font-editorial font-bold text-lg transition-transform duration-300 group-hover:scale-105">
+        A
+      </div>
+      <div>
+        <span class="font-editorial font-semibold text-base tracking-tight block leading-none text-[#1E2D28]">Almusayid</span>
+        <span class="text-xs text-[#566B63] block mt-0.5">Sulthan Faazaa • Web Developer</span>
+      </div>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-1" aria-label="Main Menu">
+      <a href="#trust-about" class="nav-link">About</a>
+      <a href="#projects" class="nav-link">Works</a>
+      <a href="#craft" class="nav-link">Capabilities</a>
+      <a href="#journey" class="nav-link">Experience</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+
+    <div class="flex items-center gap-2.5">
+      <button id="openAssetGuideBtn" class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold px-3.5 py-2 rounded-full bg-[#F2EAE0] text-[#243B35] hover:bg-[#E5D8C8] transition" title="Lihat daftar panduan foto & alt untuk diganti manual">
+        <i data-lucide="image" class="w-3.5 h-3.5"></i>
+        <span>Photo Guide</span>
+      </button>
+      <a href="#contact" class="btn-primary-pastel !py-2.5 !px-5 !text-xs sm:!text-sm">
+        <span>Hire Me</span>
+        <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       SECTION 1: MULTI-LAYER SVG PARALLAX LANDSCAPE HERO
+       - Layer Belakang -> Lambat | Layer Depan -> Cepat
+       - Animasi Sungai Mengalir, Angin Lembut, dan Rumput/Tumbuhan Bergoyang
+       - Bagian bawah Layer Pertama (#243B35) menyatu 100% dengan Section 2
+       ========================================================================== -->
+  <section id="hero" class="hero-parallax-stage" aria-label="Illustrated Mountain, River, and Botanical Valley Parallax Header">
+    
+    <!-- LAYER 0 (PALING BELAKANG - Speed 0.08): Matahari Pastel & Awan Lembut -->
+    <!-- Catatan SVG Background: Anda bisa mengganti atau menambahkan SVG ilustrasi langit/awan di dalam grup ini -->
+    <div class="parallax-layer" data-parallax-speed="0.08">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Ilustrasi vector background langit pagi warna pastel peach dan lavender lembut dengan matahari hangat serta awan bergerak pelan">
+        <defs>
+          <radialGradient id="sunPastelGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#FFFDF7" stop-opacity="1" />
+            <stop offset="55%" stop-color="#FFE3B8" stop-opacity="0.75" />
+            <stop offset="100%" stop-color="#F9DCC4" stop-opacity="0" />
+          </radialGradient>
+          <linearGradient id="distantPeakGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#D4C7E8" />
+            <stop offset="100%" stop-color="#EBD8D0" />
+          </linearGradient>
+        </defs>
+
+        <!-- Glowing Pastel Sun -->
+        <circle cx="1050" cy="230" r="185" fill="url(#sunPastelGrad)" class="anim-sun-glow" />
+        <circle cx="1050" cy="230" r="68" fill="#FFF9EC" opacity="0.9" />
+
+        <!-- Soft Animated Clouds -->
+        <g class="anim-cloud-1" opacity="0.75" fill="#FFFDF9">
+          <path d="M160 210 C160 185, 195 170, 225 182 C245 155, 295 158, 312 185 C340 185, 358 205, 350 225 L155 225 C142 222, 145 205, 160 210 Z" />
+          <path d="M1130 165 C1130 148, 1158 138, 1180 148 C1198 128, 1235 130, 1248 150 C1268 150, 1282 164, 1276 178 L1125 178 Z" opacity="0.65" />
+        </g>
+        <g class="anim-cloud-2" opacity="0.55" fill="#FFFDF9">
+          <path d="M520 145 C520 128, 548 118, 572 128 C590 108, 632 110, 646 132 C668 132, 682 146, 675 160 L515 160 Z" />
+        </g>
+      </svg>
+    </div>
+
+    <!-- LAYER 1 (PEGUNUNGAN JAUH - Speed 0.18): Siluet Pegunungan Pastel Lavender -->
+    <div class="parallax-layer" data-parallax-speed="0.18">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Ilustrasi vector barisan pegunungan jauh berwarna pastel ungu lavender dan dusty rose">
+        <path fill="url(#distantPeakGrad)" d="M0,900 L0,490 L135,410 L270,475 L430,350 L590,455 L760,375 L940,465 L1120,335 L1295,435 L1440,380 L1440,900 Z" />
+        <!-- Snow/Mist Highlights on Distant Peaks -->
+        <path fill="#FFFDF9" opacity="0.35" d="M430,350 L485,388 L450,395 L430,368 L405,392 L385,382 Z" />
+        <path fill="#FFFDF9" opacity="0.35" d="M1120,335 L1175,375 L1145,382 L1120,352 L1092,378 L1070,368 Z" />
+      </svg>
+    </div>
+
+    <!-- LAYER 2 (PEGUNUNGAN TENGAH & KABUT - Speed 0.32): Pegunungan Sage & Kabut Lembah -->
+    <div class="parallax-layer" data-parallax-speed="0.32">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Ilustrasi vector pegunungan lapis tengah berwarna pastel hijau sage lembut dan kabut pagi">
+        <defs>
+          <linearGradient id="midMountainGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#9EB9B1" />
+            <stop offset="100%" stop-color="#769A8E" />
+          </linearGradient>
+        </defs>
+        <path fill="url(#midMountainGrad)" d="M0,900 L0,545 L180,460 L355,540 L555,435 L785,555 L995,445 L1210,535 L1440,455 L1440,900 Z" />
+        <!-- Soft Valley Mist Layer -->
+        <rect x="0" y="515" width="1440" height="120" fill="url(#sunPastelGrad)" opacity="0.28" />
+      </svg>
+    </div>
+
+    <!-- LAYER 3 (PERBUKITAN PINUS, SUNGAI BERKELOK & ANGIN - Speed 0.46) -->
+    <div class="parallax-layer" data-parallax-speed="0.46">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Ilustrasi vector lembah bukit hijau pastel dengan aliran sungai jernih berkelok yang beranimasi mengalir serta hembusan angin lembut">
+        <defs>
+          <linearGradient id="valleyHillGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#6B9486" />
+            <stop offset="100%" stop-color="#3E6458" />
+          </linearGradient>
+          <linearGradient id="riverWaterGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#E2F8F9" />
+            <stop offset="45%" stop-color="#A8E0E4" />
+            <stop offset="100%" stop-color="#7BC5CB" />
+          </linearGradient>
+        </defs>
+
+        <!-- Left & Right Rolling Botanical Hills -->
+        <path fill="url(#valleyHillGrad)" d="M0,900 L0,590 Q240,515 520,610 T1040,595 Q1260,540 1440,590 L1440,900 Z" />
+        <path fill="#4B7366" d="M0,900 L0,655 Q330,585 690,665 T1440,625 L1440,900 Z" />
+
+        <!-- Winding Serene River Shape -->
+        <path fill="url(#riverWaterGrad)" d="M685,585 C655,620 570,645 595,690 C620,735 795,755 765,815 C740,860 560,885 520,905 L895,905 C920,865 865,825 835,785 C800,740 695,715 680,675 C665,640 715,610 725,585 Z" />
+
+        <!-- Animated River Current Ripples (Simple, Smooth Water Flow) -->
+        <path class="anim-river-line" d="M702,595 C670,630 605,655 628,695 C655,740 815,760 795,825 C780,865 660,885 625,900" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" />
+        <path class="anim-river-line-slow" d="M712,605 C690,640 645,665 668,705 C695,745 845,775 835,840 C828,875 765,890 740,900" fill="none" stroke="#FFFDF9" stroke-width="2.5" stroke-linecap="round" />
+        <path class="anim-river-line" d="M645,675 C665,715 765,745 745,805 C728,850 610,875 575,895" fill="none" stroke="#E8FBFB" stroke-width="2.5" stroke-linecap="round" />
+
+        <!-- Animated Gentle Wind Streams Across the Valley -->
+        <path class="anim-wind-stream" d="M120,485 Q320,455 510,490 T890,475" fill="none" stroke="#FFFDF9" stroke-width="2" stroke-linecap="round" />
+        <path class="anim-wind-stream-delayed" d="M460,555 Q680,525 880,560 T1290,535" fill="none" stroke="#FFFDF9" stroke-width="1.8" stroke-linecap="round" />
+      </svg>
+    </div>
+
+    <!-- HERO CONTENT CARD (Positioned cleanly in the sky/valley clearing, moves at parallax speed 0.38) -->
+    <div class="hero-content-wrapper" id="heroContent" data-parallax-speed="0.38">
+      <!-- Availability Pill -->
+      <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/80 backdrop-blur-md border border-[#243B35]/10 shadow-sm mb-6">
+        <span class="w-2.5 h-2.5 rounded-full bg-[#5E8C7A] animate-ping"></span>
+        <span class="w-2.5 h-2.5 rounded-full bg-[#5E8C7A] -ml-5"></span>
+        <span class="text-xs sm:text-sm font-semibold text-[#243B35] tracking-wide">Available for Global Freelance & Remote Projects</span>
+      </div>
+
+      <!-- Main Editorial Heading -->
+      <h1 class="font-editorial text-4xl sm:text-6xl lg:text-[4.25rem] font-bold text-[#1E2D28] tracking-tight leading-[1.08] mb-6">
+        Crafting serene, reliable <br class="hidden sm:inline" />
+        <span class="italic font-normal text-[#4B7366]">digital experiences</span> that scale.
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="text-base sm:text-lg text-[#354B43] max-w-2xl mx-auto mb-8 font-medium leading-relaxed">
+        Hi, I’m <strong>Sulthan Faazaa Akbar Riyandoro</strong> — also known as <strong>Almusayid</strong>. A Full-Stack Web Developer from Indonesia blending thoughtful visual craft with dependable architecture for clients worldwide.
+      </p>
+
+      <!-- Primary Actions -->
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a href="#projects" class="btn-primary-pastel magnetic-btn">
+          <span>Explore Selected Works</span>
+          <i data-lucide="compass" class="w-4 h-4"></i>
+        </a>
+        <a href="#contact" class="btn-secondary-pastel magnetic-btn">
+          <i data-lucide="sparkles" class="w-4 h-4 text-[#E07A5F]"></i>
+          <span>Start a Conversation</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- LAYER 4 (LAYER PERTAMA / FOREGROUND PALING DEPAN - Speed 0.0 / Anchored Bottom):
+         Tepian Sungai, Rumput & Tumbuhan Bergoyang Lembut.
+         Bagian paling bawah berwarna #243B35 menyatu sempurna tanpa garis potong dengan Section berikutnya! -->
+    <div class="parallax-layer" data-parallax-speed="0">
+      <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" role="img" aria-label="Ilustrasi vector layer paling depan berupa siluet bukit taman botani, rerumputan, pakis, dan bunga pastel yang bergoyang tertiup angin, menyatu mulus dengan warna dasar section di bawahnya">
+        <!-- Foreground Deep Meadow Base (#243B35 merges seamlessly into next section) -->
+        <path fill="#243B35" d="M0,900 L0,735 Q210,690 470,765 Q640,815 745,810 Q880,805 1060,745 Q1270,680 1440,730 L1440,900 Z" />
+
+        <!-- Left Foreground Botanical Group (Swaying Ferns, Reeds & Pastel Blossoms) -->
+        <g class="sway-plant-1">
+          <!-- Tall Grass & Fern Blades Left -->
+          <path fill="#325249" d="M65,760 Q45,675 18,625 Q55,665 82,755 Z" />
+          <path fill="#4B7366" d="M95,765 Q90,660 125,600 Q112,670 115,765 Z" />
+          <path fill="#5E8C7A" d="M135,770 Q155,685 195,640 Q168,705 152,772 Z" />
+          <!-- Pastel Wildflowers Left -->
+          <circle cx="125" cy="598" r="8" fill="#F7D9C4" />
+          <circle cx="195" cy="638" r="6.5" fill="#E8B86D" />
+          <circle cx="20" cy="623" r="7" fill="#E2DAF0" />
+        </g>
+
+        <g class="sway-plant-2">
+          <path fill="#325249" d="M235,780 Q215,700 190,660 Q228,695 252,780 Z" />
+          <path fill="#5E8C7A" d="M265,785 Q275,700 310,655 Q292,715 282,785 Z" />
+          <circle cx="310" cy="653" r="7" fill="#F9DCC4" />
+        </g>
+
+        <!-- Riverbank Center Reeds & Water Lilies -->
+        <g class="sway-plant-3">
+          <path fill="#4B7366" d="M510,810 Q495,740 475,705 Q508,740 524,810 Z" />
+          <path fill="#769E8F" d="M532,815 Q540,745 565,710 Q550,755 544,815 Z" />
+          <circle cx="566" cy="708" r="6" fill="#FFE3B8" />
+        </g>
+
+        <!-- Right Foreground Botanical Group (Swaying Shrubs, Grass & Blossoms) -->
+        <g class="sway-plant-2">
+          <path fill="#325249" d="M1140,775 Q1125,695 1095,650 Q1138,690 1158,775 Z" />
+          <path fill="#5E8C7A" d="M1170,772 Q1185,685 1220,635 Q1198,695 1188,772 Z" />
+          <circle cx="1220" cy="633" r="7.5" fill="#F7D9C4" />
+          <circle cx="1095" cy="648" r="6" fill="#E2DAF0" />
+        </g>
+
+        <g class="sway-plant-1">
+          <path fill="#4B7366" d="M1285,760 Q1265,665 1235,610 Q1280,660 1305,760 Z" />
+          <path fill="#769E8F" d="M1318,758 Q1330,655 1370,595 Q1348,665 1338,758 Z" />
+          <path fill="#325249" d="M1355,762 Q1385,685 1418,645 Q1392,705 1372,762 Z" />
+          <circle cx="1370" cy="593" r="8.5" fill="#E8B86D" />
+          <circle cx="1235" cy="608" r="7" fill="#F9DCC4" />
+        </g>
+
+        <!-- Extra Solid Bottom Anchor Strip to ensure 100% seamless blend -->
+        <rect x="0" y="875" width="1440" height="30" fill="#243B35" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 2: SEAMLESS MERGED SECTION (Deep Meadow #243B35)
+       - Menyatu tanpa garis batas dengan bawah Layer Pertama Hero!
+       - Menampilkan Trust Metrics (muncul dinamis dari Kiri & Kanan saat discroll)
+       - Menampilkan Perkenalan Personal & Ilustrasi Portrait
+       ========================================================================== -->
+  <section id="trust-about" class="seamless-meadow-section">
+    <div class="max-w-6xl mx-auto px-6">
+      
+      <!-- Dynamic Lateral Slide Trust Cards (2 from Left, 2 from Right) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-20">
+        <!-- Card 1 (Slide from Left) -->
+        <div class="meadow-glass-card reveal-from-left">
+          <div class="w-11 h-11 rounded-2xl bg-[#E8B86D]/20 text-[#E8B86D] flex items-center justify-center mb-4">
+            <i data-lucide="message-square-heart" class="w-5 h-5"></i>
+          </div>
+          <p class="text-2xl font-editorial font-bold text-[#FAF6F0] mb-1">Fluent English</p>
+          <p class="text-sm text-[#C2D4CD]">Effortless communication, clear progress updates, and proactive collaboration across time zones.</p>
+        </div>
+
+        <!-- Card 2 (Slide from Left) -->
+        <div class="meadow-glass-card reveal-from-left">
+          <div class="w-11 h-11 rounded-2xl bg-[#A8E0E4]/20 text-[#A8E0E4] flex items-center justify-center mb-4">
+            <i data-lucide="layers" class="w-5 h-5"></i>
+          </div>
+          <p class="text-2xl font-editorial font-bold text-[#FAF6F0] mb-1">Full-Stack Craft</p>
+          <p class="text-sm text-[#C2D4CD]">From responsive, tactile interfaces to well-structured backend services and RESTful APIs.</p>
+        </div>
+
+        <!-- Card 3 (Slide from Right) -->
+        <div class="meadow-glass-card reveal-from-right">
+          <div class="w-11 h-11 rounded-2xl bg-[#F7D9C4]/20 text-[#F7D9C4] flex items-center justify-center mb-4">
+            <i data-lucide="zap" class="w-5 h-5"></i>
+          </div>
+          <p class="text-2xl font-editorial font-bold text-[#FAF6F0] mb-1">Fast & Reliable</p>
+          <p class="text-sm text-[#C2D4CD]">Focused on fast loading speeds, cross-browser stability, and clean, maintainable architecture.</p>
+        </div>
+
+        <!-- Card 4 (Slide from Right) -->
+        <div class="meadow-glass-card reveal-from-right">
+          <div class="w-11 h-11 rounded-2xl bg-[#E2DAF0]/20 text-[#E2DAF0] flex items-center justify-center mb-4">
+            <i data-lucide="globe-2" class="w-5 h-5"></i>
+          </div>
+          <p class="text-2xl font-editorial font-bold text-[#FAF6F0] mb-1">$10/hr Starting Rate</p>
+          <p class="text-sm text-[#C2D4CD]">Accessible, high-value engineering partner ready for short-term tasks or long-term contracts.</p>
+        </div>
+      </div>
+
+      <!-- Editorial Story & Portrait Grid inside the Merged Meadow Section -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Column: Portrait / Workspace Photo with Rotating Stamp -->
+        <div class="lg:col-span-5 relative reveal-scale-rotate">
+          <div class="curated-image-frame aspect-[4/5] border-2 border-white/15 shadow-2xl">
+            <img
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=80"
+              onerror="this.onerror=null;this.src='https://placehold.co/720x900/325249/FAF6F0?text=Portrait+Sulthan+Faazaa';"
+              alt="Foto potret profesional Sulthan Faazaa Akbar Riyandoro (Almusayid) dengan pencahayaan natural hangat, ekspresi ramah dan percaya diri, atau ilustrasi avatar artistik bergaya flat pastel menghadap kamera dengan latar belakang tanaman hijau lembut."
+            />
+            <div class="alt-guide-badge">
+              <i data-lucide="camera" class="w-3.5 h-3.5"></i>
+              <span>Hover: Lihat deskripsi alt untuk ganti foto profil</span>
+            </div>
+          </div>
+
+          <!-- Floating Rotating Botanical Stamp Badge -->
+          <div class="absolute -bottom-6 -right-4 sm:-right-6 w-28 h-28 rounded-full bg-[#FAF6F0] text-[#243B35] p-2 shadow-xl flex items-center justify-center">
+            <svg viewBox="0 0 100 100" class="w-full h-full spinning-stamp">
+              <path id="stampCirclePath" d="M 50, 50 m -36, 0 a 36,36 0 1,1 72,0 a 36,36 0 1,1 -72,0" fill="none" />
+              <text font-size="8.7" font-weight="700" fill="#243B35" letter-spacing="2.1">
+                <textPath href="#stampCirclePath">ALMUSAYID • WEB CRAFTSMAN •</textPath>
+              </text>
+            </svg>
+            <i data-lucide="feather" class="w-6 h-6 text-[#E07A5F] absolute"></i>
+          </div>
+        </div>
+
+        <!-- Right Column: Warm Non-Nerdy Narrative -->
+        <div class="lg:col-span-7 reveal-from-right">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-[#E8B86D] text-xs font-semibold uppercase tracking-widest mb-4">
+            <i data-lucide="sprout" class="w-3.5 h-3.5"></i>
+            <span>Behind the Craft</span>
+          </div>
+
+          <h2 class="font-editorial text-3xl sm:text-5xl font-bold text-[#FAF6F0] leading-tight mb-6">
+            Technology should feel effortless, warm, and human.
+          </h2>
+
+          <p class="text-[#D5E3DD] text-base sm:text-lg mb-5 leading-relaxed">
+            Many websites feel either overly rigid or cluttered with unnecessary complexity. My approach is different: I build web applications that pair <strong>calm, intuitive visual design</strong> with <strong>rock-solid backend engineering</strong>.
+          </p>
+
+          <p class="text-[#C2D4CD] text-base mb-8 leading-relaxed">
+            Currently working as a <strong>Website Programmer at PT. MOBOID JET INDONESIA</strong> and pursuing my Bachelor of Applied Science in Informatics Engineering at <strong>Politeknik Negeri Bandung (POLBAN)</strong>, I love finding faster, cleaner ways to solve real-world problems for businesses and creators.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-6 pt-4 border-t border-white/15">
+            <div>
+              <span class="block text-xs uppercase tracking-wider text-[#A3BDB3]">Location</span>
+              <span class="font-semibold text-[#FAF6F0]">Bandung, West Java, Indonesia</span>
+            </div>
+            <div class="h-8 w-px bg-white/15 hidden sm:block"></div>
+            <div>
+              <span class="block text-xs uppercase tracking-wider text-[#A3BDB3]">Education</span>
+              <span class="font-semibold text-[#FAF6F0]">Politeknik Negeri Bandung (POLBAN)</span>
+            </div>
+            <div class="h-8 w-px bg-white/15 hidden sm:block"></div>
+            <div>
+              <span class="block text-xs uppercase tracking-wider text-[#A3BDB3]">Languages</span>
+              <span class="font-semibold text-[#FAF6F0]">English (Fluent) & Indonesian</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Organic SVG Wave Transition from Deep Meadow (#243B35) to Soft Pastel Cream (#FAF6F0) -->
+  <div class="w-full overflow-hidden leading-none bg-[#FAF6F0] -mt-1" aria-hidden="true">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none" class="w-full h-16 sm:h-24 block">
+      <path fill="#243B35" d="M0,0 L1440,0 L1440,35 Q1140,115 720,65 T0,85 Z"></path>
+    </svg>
+  </div>
+
+  <!-- ==========================================================================
+       SECTION 3: SELECTED WORKS & CASE STUDIES
+       - Muncul dinamis dari kecil membesar dengan rotasi (Scale + Rotation Reveal)
+       - Dilengkapi foto ilustrasi ber-alt lengkap untuk diganti manual
+       ========================================================================== -->
+  <section id="projects" class="py-24 px-6 bg-[#FAF6F0] relative">
+    <div class="max-w-6xl mx-auto">
+      
+      <!-- Section Heading -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#DCECE7] text-[#243B35] text-xs font-semibold uppercase tracking-widest mb-3">
+            <i data-lucide="folder-heart" class="w-3.5 h-3.5"></i>
+            <span>Curated Portfolio</span>
+          </div>
+          <h2 class="font-editorial text-4xl sm:text-5xl font-bold text-[#1E2D28] tracking-tight">
+            Selected Works & Case Studies
+          </h2>
+        </div>
+        <p class="text-[#566B63] max-w-md text-sm sm:text-base">
+          Every project is crafted with attention to smooth interaction, structured server logic, and long-term maintainability.
+        </p>
+      </div>
+
+      <!-- Project Cards Stack -->
+      <div class="space-y-16">
+
+        <!-- PROJECT 1: OVERDOSE (Scale + Rotation Reveal on Scroll) -->
+        <article class="pastel-card p-6 sm:p-10 lg:p-12 bg-[#FFFDF9] grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center reveal-scale-rotate-left">
+          <div class="lg:col-span-7">
+            <div class="curated-image-frame aspect-[16/10] shadow-md">
+              <img
+                src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1200&q=80"
+                onerror="this.onerror=null;this.src='https://placehold.co/960x600/DCECE7/243B35?text=Overdose+Web+Application+Mockup';"
+                alt="Mockup tangkapan layar aplikasi web Overdose yang ditampilkan di atas meja kayu minimalis dengan nuansa warna pastel lembut, memperlihatkan antarmuka dashboard modern yang bersih, grafik alur kerja, dan navigasi responsif."
+              />
+              <div class="alt-guide-badge">
+                <i data-lucide="image" class="w-3.5 h-3.5"></i>
+                <span>Ganti dengan screenshot asli aplikasi Overdose</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 space-y-5">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-[#DCECE7] text-[#243B35]">Lead Developer</span>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-[#FCEEE2] text-[#9C4A32]">Active Deployment</span>
+            </div>
+
+            <h3 class="font-editorial text-3xl font-bold text-[#1E2D28]">
+              Overdose — Full-Stack Web Application
+            </h3>
+
+            <p class="text-[#566B63] text-sm sm:text-base leading-relaxed">
+              A modular full-stack web application engineered to streamline digital workflows through clean server-side architecture, structured RESTful API endpoints, and a responsive user interface.
+            </p>
+
+            <!-- Soft Non-Nerdy Feature Pills -->
+            <div class="flex flex-wrap gap-2 pt-1">
+              <span class="px-3 py-1.5 rounded-xl bg-[#F2EAE0] text-[#243B35] text-xs font-medium">Node.js Architecture</span>
+              <span class="px-3 py-1.5 rounded-xl bg-[#F2EAE0] text-[#243B35] text-xs font-medium">Express.js</span>
+              <span class="px-3 py-1.5 rounded-xl bg-[#F2EAE0] text-[#243B35] text-xs font-medium">RESTful APIs</span>
+              <span class="px-3 py-1.5 rounded-xl bg-[#F2EAE0] text-[#243B35] text-xs font-medium">Responsive UI</span>
+            </div>
+
+            <div class="pt-4 flex flex-wrap items-center gap-3">
+              <a href="https://github.com/SulLightAnony/overdose" target="_blank" rel="noopener noreferrer" class="btn-primary-pastel !py-3 !px-6 !text-sm">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+                  <path d="M9 18c-4.51 2-5-2-7-2"></path>
+                </svg>
+                <span>Explore Source Repository</span>
+              </a>
+              <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-[#5E8C7A] px-3 py-2">
+                <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+                <span>Live Demo Deploying Soon</span>
+              </span>
+            </div>
+          </div>
+        </article>
+
+        <!-- PROJECT 2: ENTERPRISE WEB PLATFORMS & API INTEGRATION (Scale + Opposite Rotation Reveal) -->
+        <article class="pastel-card p-6 sm:p-10 lg:p-12 bg-[#FFFDF9] grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center reveal-scale-rotate-right">
+          <div class="lg:col-span-5 order-2 lg:order-1 space-y-5">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-[#E2DAF0] text-[#3B2E58]">Commercial Experience</span>
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-[#DCECE7] text-[#243B35]">PT. MOBOID JET INDONESIA</span>
+            </div>
+
+            <h3 class="font-editorial text-3xl font-bold text-[#1E2D28]">
+              Commercial Web Systems & API Integration
+            </h3>
+
+            <p class="text-[#566B63] text-sm sm:text-base leading-relaxed">
+              Designed, built, and maintained responsive production web features. Focused on seamless data communication between client interfaces and databases while eliminating cross-browser bottlenecks.
+            </p>
+
+            <div class="flex flex-wrap gap-2 pt-1">
+              <span class="px-3 py-1.5 rounded-xl bg-[#F2EAE0] text-[#243B35] text-xs font-medium">Full-Stack Web</span>
+              <span class="px-3 py-1.5 rounded-xl bg-[#F2EAE0] text-[#243B35] text-xs font-medium">API Integration</span>
+              <span class="px-3 py-1.5 rounded-xl bg-[#F2EAE0] text-[#243B35] text-xs font-medium">Performance Optimization</span>
+              <span class="px-3 py-1.5 rounded-xl bg-[#F2EAE0] text-[#243B35] text-xs font-medium">Agile Collaboration</span>
+            </div>
+
+            <div class="pt-4 flex flex-wrap items-center gap-3">
+              <a href="#journey" class="btn-secondary-pastel !py-3 !px-6 !text-sm">
+                <span>View Role Details</span>
+                <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 order-1 lg:order-2">
+            <div class="curated-image-frame aspect-[16/10] shadow-md">
+              <img
+                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80"
+                onerror="this.onerror=null;this.src='https://placehold.co/960x600/E2DAF0/243B35?text=Commercial+Web+Systems+Preview';"
+                alt="Foto tampilan proyek web komersial atau ilustrasi antarmuka aplikasi bisnis modern di layar laptop dengan palet warna pastel hangat, menampilkan tata letak responsif yang rapi dan komponen interaktif."
+              />
+              <div class="alt-guide-badge">
+                <i data-lucide="image" class="w-3.5 h-3.5"></i>
+                <span>Ganti dengan preview proyek kedua / komersial Anda</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 4: CAPABILITIES & CRAFT (Soft Pastel Bento Grid with Cursor Aura)
+       - Non-nerdy presentation of skills (focusing on client value & outcomes)
+       - Muncul bertahap (Staggered Pop-Up) + Ilustrasi Pendukung
+       ========================================================================== -->
+  <section id="craft" class="py-24 px-6 bg-[#F2EAE0]/65 relative overflow-hidden">
+    <div class="max-w-6xl mx-auto">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FCEEE2] text-[#9C4A32] text-xs font-semibold uppercase tracking-widest mb-3">
+          <i data-lucide="palette" class="w-3.5 h-3.5"></i>
+          <span>How I Help Clients Succeed</span>
+        </div>
+        <h2 class="font-editorial text-4xl sm:text-5xl font-bold text-[#1E2D28] tracking-tight mb-4">
+          Versatile Craft, Thoughtful Execution
+        </h2>
+        <p class="text-[#566B63] text-base">
+          Whether you need a complete web product from scratch, reliable server architecture, or engaging visual content, I bring clarity and care to every deliverable.
+        </p>
+      </div>
+
+      <!-- Pastel Bento Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        
+        <!-- Bento 1: Interactive Front-End & Motion (7 cols) -->
+        <div class="md:col-span-7 bento-spotlight-card bg-[#DCECE7] p-8 sm:p-10 bento-reveal">
+          <div class="bento-content h-full flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-[#243B35] text-[#FAF6F0] flex items-center justify-center mb-6">
+                <i data-lucide="layout-template" class="w-6 h-6"></i>
+              </div>
+              <h3 class="font-editorial text-2xl sm:text-3xl font-bold text-[#1E2D28] mb-3">
+                Responsive & Interactive Web Interfaces
+              </h3>
+              <p class="text-[#354B43] text-sm sm:text-base leading-relaxed mb-6">
+                Crafting welcoming, mobile-ready websites with silky parallax motion, intuitive layouts, and smooth micro-interactions that hold visitor attention without sacrificing speed.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3.5 py-1.5 rounded-full bg-white/75 text-[#243B35] text-xs font-semibold">Modern JavaScript & TypeScript</span>
+              <span class="px-3.5 py-1.5 rounded-full bg-white/75 text-[#243B35] text-xs font-semibold">Native CSS3 & HTML5</span>
+              <span class="px-3.5 py-1.5 rounded-full bg-white/75 text-[#243B35] text-xs font-semibold">Cross-Browser Polish</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento 2: Backend & API Engineering (5 cols) -->
+        <div class="md:col-span-5 bento-spotlight-card bg-[#E2DAF0] p-8 sm:p-10 bento-reveal">
+          <div class="bento-content h-full flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-[#3B2E58] text-[#FAF6F0] flex items-center justify-center mb-6">
+                <i data-lucide="server" class="w-6 h-6"></i>
+              </div>
+              <h3 class="font-editorial text-2xl sm:text-3xl font-bold text-[#231B36] mb-3">
+                Dependable Backends & APIs
+              </h3>
+              <p class="text-[#3B2E58]/85 text-sm sm:text-base leading-relaxed mb-6">
+                Building secure, well-organized server logic and RESTful APIs using Node.js, Express, and PHP so your web application handles data smoothly and reliably.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3.5 py-1.5 rounded-full bg-white/75 text-[#231B36] text-xs font-semibold">Node.js & Express</span>
+              <span class="px-3.5 py-1.5 rounded-full bg-white/75 text-[#231B36] text-xs font-semibold">MySQL & MongoDB</span>
+              <span class="px-3.5 py-1.5 rounded-full bg-white/75 text-[#231B36] text-xs font-semibold">REST APIs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento 3: Digital Content & Video Editing (5 cols) -->
+        <div class="md:col-span-5 bento-spotlight-card bg-[#FCEEE2] p-8 sm:p-10 bento-reveal">
+          <div class="bento-content h-full flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-2xl bg-[#9C4A32] text-[#FAF6F0] flex items-center justify-center mb-6">
+                <i data-lucide="film" class="w-6 h-6"></i>
+              </div>
+              <h3 class="font-editorial text-2xl sm:text-3xl font-bold text-[#3D2219] mb-3">
+                Creative Media & Video Production
+              </h3>
+              <p class="text-[#5C372B] text-sm sm:text-base leading-relaxed mb-6">
+                As an active content creator (<a href="https://www.youtube.com/@Almusayid029" target="_blank" rel="noopener noreferrer" class="underline font-semibold">@Almusayid029</a>), I also help brands with video editing, visual storytelling, and clear technical documentation.
+              </p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3.5 py-1.5 rounded-full bg-white/75 text-[#3D2219] text-xs font-semibold">Video Editing</span>
+              <span class="px-3.5 py-1.5 rounded-full bg-white/75 text-[#3D2219] text-xs font-semibold">Visual Storytelling</span>
+              <span class="px-3.5 py-1.5 rounded-full bg-white/75 text-[#3D2219] text-xs font-semibold">Documentation</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento 4: Curated Botanical Workspace Illustration Card (7 cols) -->
+        <div class="md:col-span-7 bento-spotlight-card bg-[#FFFDF9] p-6 sm:p-8 bento-reveal grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
+          <div class="sm:col-span-6 bento-content space-y-3">
+            <span class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#5E8C7A]">
+              <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+              <span>Workflow Philosophy</span>
+            </span>
+            <h3 class="font-editorial text-2xl font-bold text-[#1E2D28]">
+              Calm Process, Transparent Milestones
+            </h3>
+            <p class="text-sm text-[#566B63] leading-relaxed">
+              Every engagement follows a clear path: Discovery & Planning, Iterative Building with Git version control, Thorough Testing, and Smooth Handover.
+            </p>
+          </div>
+          <div class="sm:col-span-6 bento-content">
+            <div class="curated-image-frame aspect-[4/3]">
+              <img
+                src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80"
+                onerror="this.onerror=null;this.src='https://placehold.co/600x450/FAF6F0/243B35?text=Creative+Workspace+Illustration';"
+                alt="Foto estetis meja kerja kreatif bergaya minimalis dengan laptop, secangkir kopi hangat, buku catatan, dan tanaman hias indoor di dekat jendela bercahaya lembut pastel."
+              />
+              <div class="alt-guide-badge">
+                <i data-lucide="image" class="w-3.5 h-3.5"></i>
+                <span>Foto suasana meja kerja / ilustrasi workflow</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 5: EXPERIENCE, EDUCATION & HONORS (Scroll-Drawn Winding Path)
+       - Garis jalur vertikal tergambar otomatis mengikuti scroll
+       - Kartu muncul dinamis bergantian dari kiri dan kanan
+       ========================================================================== -->
+  <section id="journey" class="py-24 px-6 bg-[#FAF6F0] relative overflow-hidden">
+    <div class="max-w-5xl mx-auto">
+      
+      <div class="text-center max-w-2xl mx-auto mb-20">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#DCECE7] text-[#243B35] text-xs font-semibold uppercase tracking-widest mb-3">
+          <i data-lucide="award" class="w-3.5 h-3.5"></i>
+          <span>Experience & Academic Foundation</span>
+        </div>
+        <h2 class="font-editorial text-4xl sm:text-5xl font-bold text-[#1E2D28] tracking-tight mb-4">
+          My Professional Journey
+        </h2>
+        <p class="text-[#566B63] text-base">
+          Combining hands-on industry programming experience with formal software engineering education.
+        </p>
+      </div>
+
+      <!-- Timeline Container with Scroll-Drawn Vertical Line -->
+      <div class="relative">
+        <!-- Static Track Line -->
+        <div class="hidden md:block absolute left-1/2 top-4 bottom-4 w-0.5 bg-[#243B35]/12 -translate-x-1/2"></div>
+        <!-- Animated Progress Line -->
+        <div id="timelineProgressLine" class="hidden md:block absolute left-1/2 top-4 w-1 bg-gradient-to-b from-[#E07A5F] via-[#E8B86D] to-[#5E8C7A] -translate-x-1/2 rounded-full" style="height: 0%;"></div>
+
+        <div class="space-y-12">
+
+          <!-- Item 1: PT. MOBOID JET INDONESIA -->
+          <div class="relative grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            <div class="md:col-span-5 md:text-right reveal-from-left">
+              <span class="inline-block px-3.5 py-1 rounded-full bg-[#DCECE7] text-[#243B35] text-xs font-bold mb-2">April 2024 — Present</span>
+              <h3 class="font-editorial text-2xl font-bold text-[#1E2D28]">Website Programmer</h3>
+              <p class="text-sm font-semibold text-[#5E8C7A]">PT. MOBOID JET INDONESIA • Bekasi</p>
+            </div>
+
+            <div class="hidden md:flex md:col-span-2 justify-center z-10">
+              <div class="w-11 h-11 rounded-full bg-[#243B35] text-[#FAF6F0] flex items-center justify-center shadow-md border-4 border-[#FAF6F0]">
+                <i data-lucide="code-2" class="w-4 h-4"></i>
+              </div>
+            </div>
+
+            <div class="md:col-span-5 pastel-card p-6 bg-[#FFFDF9] reveal-from-right">
+              <p class="text-sm text-[#566B63] leading-relaxed">
+                Architecting and maintaining responsive full-stack web features, integrating secure RESTful APIs, and resolving frontend/backend performance bottlenecks within an agile team workflow.
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 2: Politeknik Negeri Bandung (POLBAN) -->
+          <div class="relative grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            <div class="md:col-span-5 order-2 md:order-1 pastel-card p-6 bg-[#FFFDF9] reveal-from-left">
+              <p class="text-sm text-[#566B63] leading-relaxed">
+                Pursuing a Bachelor of Applied Science (S.Tr.Kom.) focusing on Data Structures & Algorithms, Object-Oriented Programming, Web Application Development, and Database Systems.
+              </p>
+            </div>
+
+            <div class="hidden md:flex md:col-span-2 order-2 justify-center z-10">
+              <div class="w-11 h-11 rounded-full bg-[#E07A5F] text-[#FAF6F0] flex items-center justify-center shadow-md border-4 border-[#FAF6F0]">
+                <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+              </div>
+            </div>
+
+            <div class="md:col-span-5 order-1 md:order-3 reveal-from-right">
+              <span class="inline-block px-3.5 py-1 rounded-full bg-[#FCEEE2] text-[#9C4A32] text-xs font-bold mb-2">2025 — 2029</span>
+              <h3 class="font-editorial text-2xl font-bold text-[#1E2D28]">B.A.Sc. in Informatics Engineering</h3>
+              <p class="text-sm font-semibold text-[#E07A5F]">Politeknik Negeri Bandung (POLBAN)</p>
+            </div>
+          </div>
+
+          <!-- Item 3: Dicoding Back-End Developer & AWS Cloud -->
+          <div class="relative grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            <div class="md:col-span-5 md:text-right reveal-from-left">
+              <span class="inline-block px-3.5 py-1 rounded-full bg-[#E2DAF0] text-[#3B2E58] text-xs font-bold mb-2">Feb 2025 — Aug 2025</span>
+              <h3 class="font-editorial text-2xl font-bold text-[#1E2D28]">Back-End Developer Certification</h3>
+              <p class="text-sm font-semibold text-[#3B2E58]">Dicoding Indonesia</p>
+            </div>
+
+            <div class="hidden md:flex md:col-span-2 justify-center z-10">
+              <div class="w-11 h-11 rounded-full bg-[#3B2E58] text-[#FAF6F0] flex items-center justify-center shadow-md border-4 border-[#FAF6F0]">
+                <i data-lucide="badge-check" class="w-4 h-4"></i>
+              </div>
+            </div>
+
+            <div class="md:col-span-5 pastel-card p-6 bg-[#FFFDF9] reveal-from-right">
+              <p class="text-sm text-[#566B63] leading-relaxed">
+                Completed intensive hands-on training in backend architecture, RESTful API design, server deployment, and cloud computing fundamentals.
+              </p>
+            </div>
+          </div>
+
+          <!-- Item 4: PT. Karya Indah Multiguna & West Java Governor Student Delegate -->
+          <div class="relative grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            <div class="md:col-span-5 order-2 md:order-1 pastel-card p-6 bg-[#FFFDF9] reveal-from-left">
+              <p class="text-sm text-[#566B63] leading-relaxed">
+                Managed high-accuracy operational data and structured tracking spreadsheets at PT. Karya Indah Multiguna. Previously honored as a Selected Student Delegate at SMK Mitra Industri MM2100 to meet the Governor of West Java.
+              </p>
+            </div>
+
+            <div class="hidden md:flex md:col-span-2 order-2 justify-center z-10">
+              <div class="w-11 h-11 rounded-full bg-[#E8B86D] text-[#1E2D28] flex items-center justify-center shadow-md border-4 border-[#FAF6F0]">
+                <i data-lucide="star" class="w-4 h-4"></i>
+              </div>
+            </div>
+
+            <div class="md:col-span-5 order-1 md:order-3 reveal-from-right">
+              <span class="inline-block px-3.5 py-1 rounded-full bg-[#F2EAE0] text-[#243B35] text-xs font-bold mb-2">Jan 2024 — Apr 2024</span>
+              <h3 class="font-editorial text-2xl font-bold text-[#1E2D28]">Administrative Operations & Honors</h3>
+              <p class="text-sm font-semibold text-[#566B63]">PT. Karya Indah Multiguna • MM2100</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SOFT ANIMATED MARQUEE RIBBON
+       ========================================================================== -->
+  <div class="py-6 bg-[#DCECE7] border-y border-[#243B35]/10 overflow-hidden">
+    <div class="marquee-track flex items-center gap-10 text-[#243B35] font-editorial text-xl sm:text-2xl font-semibold">
+      <span class="flex items-center gap-3"><i data-lucide="sparkles" class="w-5 h-5 text-[#E07A5F]"></i> Responsive Web Applications</span>
+      <span class="flex items-center gap-3"><i data-lucide="sparkles" class="w-5 h-5 text-[#E07A5F]"></i> Node.js & Express APIs</span>
+      <span class="flex items-center gap-3"><i data-lucide="sparkles" class="w-5 h-5 text-[#E07A5F]"></i> Smooth Parallax Experiences</span>
+      <span class="flex items-center gap-3"><i data-lucide="sparkles" class="w-5 h-5 text-[#E07A5F]"></i> Fluent English Communication</span>
+      <span class="flex items-center gap-3"><i data-lucide="sparkles" class="w-5 h-5 text-[#E07A5F]"></i> Reliable Timely Delivery</span>
+      <!-- Duplicate for seamless loop -->
+      <span class="flex items-center gap-3"><i data-lucide="sparkles" class="w-5 h-5 text-[#E07A5F]"></i> Responsive Web Applications</span>
+      <span class="flex items-center gap-3"><i data-lucide="sparkles" class="w-5 h-5 text-[#E07A5F]"></i> Node.js & Express APIs</span>
+      <span class="flex items-center gap-3"><i data-lucide="sparkles" class="w-5 h-5 text-[#E07A5F]"></i> Smooth Parallax Experiences</span>
+      <span class="flex items-center gap-3"><i data-lucide="sparkles" class="w-5 h-5 text-[#E07A5F]"></i> Fluent English Communication</span>
+      <span class="flex items-center gap-3"><i data-lucide="sparkles" class="w-5 h-5 text-[#E07A5F]"></i> Reliable Timely Delivery</span>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SECTION 6: DIRECT CONTACT & CONVERSION FOOTER
+       ========================================================================== -->
+  <footer id="contact" class="py-24 px-6 bg-[#FFFDF9] relative overflow-hidden">
+    <div class="max-w-5xl mx-auto">
+      
+      <div class="pastel-card bg-gradient-to-br from-[#FCEEE2] via-[#FAF6F0] to-[#DCECE7] p-8 sm:p-14 lg:p-16 text-center relative overflow-hidden reveal-scale-rotate">
+        
+        <div class="max-w-2xl mx-auto relative z-10">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/80 text-[#243B35] text-xs font-semibold uppercase tracking-widest mb-5 shadow-sm">
+            <i data-lucide="send" class="w-3.5 h-3.5 text-[#E07A5F]"></i>
+            <span>Let's Collaborate</span>
+          </div>
+
+          <h2 class="font-editorial text-4xl sm:text-6xl font-bold text-[#1E2D28] tracking-tight leading-tight mb-6">
+            Ready to bring your next web project to life?
+          </h2>
+
+          <p class="text-[#566B63] text-base sm:text-lg mb-10 leading-relaxed">
+            Whether you need a quick feature update, bug resolution, or a complete web application built from the ground up, I’m ready to help.
+          </p>
+
+          <!-- Primary Conversion Buttons (Copy Email + Direct Mail + WhatsApp) -->
+          <div class="flex flex-wrap items-center justify-center gap-4 mb-10">
+            <button id="copyEmailBtn" type="button" class="btn-primary-pastel magnetic-btn">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+              <span>Copy Email: sulthanfaaz@gmail.com</span>
+            </button>
+
+            <a href="https://wa.me/6283893606988" target="_blank" rel="noopener noreferrer" class="btn-secondary-pastel magnetic-btn">
+              <i data-lucide="phone-call" class="w-4 h-4 text-[#5E8C7A]"></i>
+              <span>WhatsApp (+62 838 9360 6988)</span>
+            </a>
+          </div>
+
+          <!-- Social & Professional Links -->
+          <div class="flex flex-wrap items-center justify-center gap-3 pt-8 border-t border-[#243B35]/10">
+            <a href="https://github.com/SulLightAnony" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/85 hover:bg-[#243B35] text-[#243B35] hover:text-white text-sm font-semibold transition shadow-sm">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+                <path d="M9 18c-4.51 2-5-2-7-2"></path>
+              </svg>
+              <span>GitHub</span>
+            </a>
+            <a href="https://www.linkedin.com/in/sulthan-faazaa-akbar-riyandoro-756380354" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/85 hover:bg-[#243B35] text-[#243B35] hover:text-white text-sm font-semibold transition shadow-sm">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12" rx="1"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://www.youtube.com/@Almusayid029" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/85 hover:bg-[#243B35] text-[#243B35] hover:text-white text-sm font-semibold transition shadow-sm">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path>
+                <polygon points="10 15 15 12 10 9 10 15" fill="currentColor"></polygon>
+              </svg>
+              <span>YouTube (@Almusayid029)</span>
+            </a>
+            <a href="https://www.instagram.com/almusayid_029/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/85 hover:bg-[#243B35] text-[#243B35] hover:text-white text-sm font-semibold transition shadow-sm">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+              </svg>
+              <span>Instagram</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Copyright -->
+      <div class="mt-12 flex flex-col sm:flex-row items-center justify-between text-xs text-[#566B63] gap-4">
+        <p>© 2026 Sulthan Faazaa Akbar Riyandoro (Almusayid). Crafted with native CSS, SVG art & GSAP.</p>
+        <a href="#hero" class="inline-flex items-center gap-1.5 font-semibold text-[#243B35] hover:text-[#E07A5F] transition">
+          <span>Back to Top Valley</span>
+          <i data-lucide="arrow-up" class="w-4 h-4"></i>
+        </a>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       MODAL PANDUAN PENGGANTIAN FOTO & ILUSTRASI MANUAL (Interactive Helper)
+       ========================================================================== -->
+  <div id="assetGuideModal" class="fixed inset-0 z-[9995] bg-[#1E2D28]/60 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-[#FFFDF9] border border-[#243B35]/15 rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl max-h-[85vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-4 border-b border-[#243B35]/10 mb-5">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-[#DCECE7] text-[#243B35] flex items-center justify-center">
+            <i data-lucide="images" class="w-5 h-5"></i>
+          </div>
+          <h3 class="font-editorial text-xl font-bold text-[#1E2D28]">Panduan Foto & SVG Background (Alt Guide)</h3>
+        </div>
+        <button id="closeAssetGuideBtn" class="p-2 rounded-full hover:bg-[#F2EAE0] text-[#243B35]">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <p class="text-sm text-[#566B63] mb-4">
+        Semua elemen gambar (<code>&lt;img&gt;</code>) dan layer SVG di halaman ini sudah dilengkapi atribut <code>alt</code> dan <code>aria-label</code> detail agar Anda mudah mencari atau menggantinya secara manual:
+      </p>
+
+      <div class="space-y-3 text-xs sm:text-sm">
+        <div class="p-3.5 rounded-2xl bg-[#FAF6F0] border border-[#243B35]/10">
+          <strong class="text-[#243B35] block mb-1">1. Hero SVG Landscape (4 Layer Parallax):</strong>
+          <span class="text-[#566B63]">Sudah terpasang SVG vector asli (Pegunungan Jauh, Pegunungan Tengah, Bukit & Sungai Berkelok, serta Rumput/Tanaman Depan). Jika Anda mengonversi PNG ke SVG sendiri, pastikan bagian paling bawah layer terdepan diberi warna <code>#243B35</code> agar tetap menyatu mulus dengan section di bawahnya.</span>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-[#FAF6F0] border border-[#243B35]/10">
+          <strong class="text-[#243B35] block mb-1">2. Foto Profil / Portrait (Section 2):</strong>
+          <span class="text-[#566B63]">Cari atau gunakan foto potret diri Anda dengan pencahayaan hangat/natural, atau ilustrasi karakter diri bergaya pastel menghadap kamera.</span>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-[#FAF6F0] border border-[#243B35]/10">
+          <strong class="text-[#243B35] block mb-1">3. Screenshot Proyek Overdose (Section 3 - Kartu 1):</strong>
+          <span class="text-[#566B63]">Ganti dengan screenshot antarmuka aplikasi web Overdose Anda (rasio 16:10).</span>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-[#FAF6F0] border border-[#243B35]/10">
+          <strong class="text-[#243B35] block mb-1">4. Screenshot Proyek Kedua / Komersial (Section 3 - Kartu 2):</strong>
+          <span class="text-[#566B63]">Ganti dengan tangkapan layar proyek web kedua Anda atau mockup proyek selama di PT. MOBOID JET INDONESIA.</span>
+        </div>
+        <div class="p-3.5 rounded-2xl bg-[#FAF6F0] border border-[#243B35]/10">
+          <strong class="text-[#243B35] block mb-1">5. Foto Meja Kerja / Ilustrasi Workflow (Section 4 - Bento 4):</strong>
+          <span class="text-[#566B63]">Gunakan foto estetis meja kerja Anda atau ilustrasi suasana kerja tenang dengan tanaman hijau.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Toast Notification Banner (No alert() used) -->
+  <div id="toastBanner" class="toast-banner" role="status" aria-live="polite">
+    <i data-lucide="check-circle" class="w-5 h-5 text-[#A8E0E4]"></i>
+    <span id="toastMessage">Email copied to clipboard!</span>
+  </div>
+
+  <!-- Custom Script -->
+  <script src="assets/js/script.js"></script>
+</body>
+</html>
