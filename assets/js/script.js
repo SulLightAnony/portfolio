@@ -187,6 +187,45 @@ window.addEventListener('DOMContentLoaded', () => {
         );
     }
 
+    // 6.5. Professional Services: Section Heading & Dynamic Card Reveals
+    const servicesHeading = document.getElementById('servicesHeading');
+    if (servicesHeading) {
+        gsap.fromTo(
+            servicesHeading,
+            { y: 35, opacity: 0 },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 0.85,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: '#services',
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse',
+                }
+            }
+        );
+    }
+
+    gsap.utils.toArray('#services .service-card').forEach((card) => {
+        gsap.fromTo(
+            card,
+            { y: 45, opacity: 0, scale: 0.95 },
+            {
+                y: 0,
+                opacity: 1,
+                scale: 1,
+                duration: 0.85,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 85%',
+                    toggleActions: 'play none none reverse',
+                }
+            }
+        );
+    });
+
     // 7. Selected Works: Item Entrance Reveal & Silky-Smooth Horizontal Pinning
     const projectsSection = document.getElementById('projects');
     const projectsHeading = document.getElementById('projectsHeading');
@@ -374,7 +413,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const progressBar = document.getElementById('scrollProgressBar');
     const topNavbar = document.getElementById('topNavbar');
     const chapterDots = document.querySelectorAll('.chapter-dot');
-    const sectionIds = ['#hero', '#trust-about', '#projects', '#craft', '#journey', '#collaborate', '#contact'];
+    const sectionIds = ['#hero', '#trust-about', '#services', '#projects', '#craft', '#journey', '#collaborate', '#contact'];
 
     window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY;

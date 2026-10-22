@@ -593,7 +593,7 @@ body {
     gap: 1.5rem;
     overflow: hidden;
     box-sizing: border-box;
-    padding-top: clamp(4.5rem, 8.5vh, 6rem);
+    padding-top: clamp(2.5rem, 5vh, 4rem);
     padding-bottom: clamp(1rem, 2vh, 2rem);
 }
 .projects-track-container {
@@ -675,4 +675,55 @@ body {
 .footer-skill-tag:hover {
     background: #E8B86D;
     color: #243B35;
+}
+
+/* --------------------------------------------------------------------------
+    14. SERVICES SECTION & INTERACTIVE CARDS
+    -------------------------------------------------------------------------- */
+.service-card {
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-soft);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.3s ease;
+    overflow: hidden;
+}
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(94, 140, 122, 0.35);
+}
+.service-card-tagline {
+    background: linear-gradient(135deg, rgba(224, 122, 95, 0.12), rgba(232, 184, 109, 0.15));
+    border: 1px dashed rgba(224, 122, 95, 0.45);
+    border-radius: 12px;
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--meadow-deep);
+}
+.service-pill-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    padding: 6px 11px;
+    background: rgba(242, 234, 224, 0.65);
+    border-radius: 10px;
+    border: 1px solid rgba(36, 59, 53, 0.06);
+    transition: background 0.25s ease, transform 0.25s ease;
+}
+.service-card:hover .service-pill-item {
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateX(2px);
 }
